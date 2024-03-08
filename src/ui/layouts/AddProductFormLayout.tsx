@@ -1,6 +1,7 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import TextInputComponent from '../component/TextInputComponent';
 import NumberInputComponent from '../component/NumberInputComponent';
+import SubmitInputComponent from '../component/SubmitInputComponent';
 
 export type ProductInputTypes = {
 	productName: string;
@@ -9,10 +10,14 @@ export type ProductInputTypes = {
 
 export type AddProductFormLayoutPropTypes = {
 	handleSubmitFunc: (arg: ProductInputTypes) => void;
+	stateValue?: ProductInputTypes;
+	stateFunc?: (arg: ProductInputTypes) => void;
 };
 
 function AddProductFormLayout({
 	handleSubmitFunc,
+	stateValue = undefined,
+	stateFunc = undefined,
 }: AddProductFormLayoutPropTypes) {
 	const {
 		register,
@@ -33,6 +38,8 @@ function AddProductFormLayout({
 					inputName="productName"
 					validationConstrain={{ required: 'This field is required' }}
 					errorMessage={errors.productName?.message?.toString()}
+					stateValue={stateValue}
+					onChangeHandler={stateFunc}
 				/>
 
 				<NumberInputComponent
@@ -41,9 +48,14 @@ function AddProductFormLayout({
 					inputName="productPrice"
 					validationConstrain={{
 						required: 'This field is required',
-						min: { value: 1, message: 'The minimum price is INR:1' },
+						min: { value: 1, message: 'Price needs to be more than 1' },
 					}}
+					stateValue={stateValue}
+					onChangeHandler={stateFunc}
+					errorMessage={errors.productPrice?.message?.toString()}
 				/>
+
+				<SubmitInputComponent displayText="Add Product" />
 			</form>
 		</div>
 	);
