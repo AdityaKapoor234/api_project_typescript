@@ -1,12 +1,8 @@
-import { useQuery } from '@tanstack/react-query';
 import ProductInformationLayout from '../layouts/ProductInformationLayout';
+import useProductsApi from '../../hooks/useProductsApi';
 
 function ProductsPage() {
-	const { isLoading, error, data } = useQuery({
-		queryKey: ['products'],
-		queryFn: () =>
-			fetch('https://dummyjson.com/products').then((res) => res.json()),
-	});
+	const { isLoading, error, data } = useProductsApi();
 
 	if (isLoading) return <h1 className="h1">Loading ...</h1>;
 
