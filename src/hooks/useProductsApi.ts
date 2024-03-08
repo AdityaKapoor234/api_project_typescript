@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { ProductInputTypes } from '../ui/layouts/AddProductFormLayout';
 
-const fetchProducts = () =>
+const fetchProductsApi = () =>
 	fetch('https://dummyjson.com/products').then((res) => res.json());
 
 const addProductsApi = (product: ProductInputTypes) =>
@@ -16,14 +16,14 @@ const addProductsApi = (product: ProductInputTypes) =>
 		}),
 	}).then((res) => res.json());
 
-const useProductsApi = () => {
+const useFetchProductsQuery = () => {
 	return useQuery({
 		queryKey: ['products'],
-		queryFn: fetchProducts,
+		queryFn: fetchProductsApi,
 	});
 };
 
-const useAddProducts = () => {
+const useAddProductsMutation = () => {
 	const queryClient = useQueryClient();
 
 	return useMutation({
@@ -39,5 +39,4 @@ const useAddProducts = () => {
 	});
 };
 
-export default useProductsApi;
-export { useAddProducts };
+export { useAddProductsMutation, useFetchProductsQuery };
