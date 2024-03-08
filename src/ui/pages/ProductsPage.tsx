@@ -1,10 +1,11 @@
 import ProductInformationLayout from '../layouts/ProductInformationLayout';
-import useProductsApi from '../../hooks/useProductsApi';
-import AddProductFormLayout from '../layouts/AddProductFormLayout';
 import { useState } from 'react';
 import type { ProductInputTypes } from '../layouts/AddProductFormLayout';
-
-import { useAddProducts } from '../../hooks/useProductsApi';
+import AddProductFormLayout from '../layouts/AddProductFormLayout';
+import {
+	useAddProductsMutation,
+	useFetchProductsQuery,
+} from '../../hooks/useProductsApi';
 
 function ProductsPage() {
 	const [newProduct, setNewProduct] = useState({
@@ -16,9 +17,9 @@ function ProductsPage() {
 		setNewProduct({ ...data });
 	};
 
-	const { mutate } = useAddProducts();
+	const { mutate } = useAddProductsMutation();
 
-	const { isLoading, error, data } = useProductsApi();
+	const { isLoading, error, data } = useFetchProductsQuery();
 
 	if (isLoading) return <h1 className="h1">Loading ...</h1>;
 
