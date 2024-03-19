@@ -11,8 +11,19 @@ const addProductsApi = (product: ProductInputTypes) =>
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify({
-			title: product.productName,
-			price: product.productPrice,
+			// title: product.productName,
+			// price: product.productPrice,
+			brand: product.brand,
+			category: product.category,
+			description: product.description,
+			discountPercentage: product.discountPercentage,
+			id: product.id,
+			images: product.images,
+			price: product.price,
+			rating: product.rating,
+			stock: product.stock,
+			thumbnail: product.thumbnail,
+			title: product.title,
 		}),
 	}).then((res) => res.json());
 
